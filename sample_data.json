@@ -1,0 +1,105 @@
+[
+    {
+        "node_id": "root_travel_plan",
+        "session_id": "Demo_Travel_Agent_Tokyo",
+        "parent_id": null,
+        "name": "Travel_Agent_Main",
+        "node_type": "agent",
+        "inputs": {
+            "query": "Plan a 5-day trip to Tokyo in Spring for 2 people, budget $5k"
+        },
+        "outputs": "Here is your 5-day itinerary for Tokyo...",
+        "start_time": 1715000000.0,
+        "end_time": 1715000005.5,
+        "latency_ms": 5500.0,
+        "token_count": 150,
+        "error": null,
+        "metadata": {
+            "model": "gpt-4-turbo"
+        },
+        "created_at": "2024-05-06T10:00:00",
+        "annotations": null,
+        "flagged": false
+    },
+    {
+        "node_id": "step_flight_search",
+        "session_id": "Demo_Travel_Agent_Tokyo",
+        "parent_id": "root_travel_plan",
+        "name": "Tool: Flight_Search",
+        "node_type": "tool",
+        "inputs": {
+            "origin": "SFO",
+            "destination": "NRT",
+            "dates": "April 2025"
+        },
+        "outputs": {
+            "flights": [
+                {
+                    "airline": "JAL",
+                    "price": 1200,
+                    "duration": "11h"
+                },
+                {
+                    "airline": "UA",
+                    "price": 950,
+                    "duration": "12h"
+                }
+            ]
+        },
+        "start_time": 1715000000.5,
+        "end_time": 1715000003.5,
+        "latency_ms": 3000.0,
+        "token_count": 0,
+        "error": null,
+        "metadata": {
+            "api": "skyscanner"
+        },
+        "created_at": "2024-05-06T10:00:00.5",
+        "annotations": "This API call is consistently slow. Need to cache results.",
+        "flagged": true
+    },
+    {
+        "node_id": "step_hotel_search",
+        "session_id": "Demo_Travel_Agent_Tokyo",
+        "parent_id": "root_travel_plan",
+        "name": "Tool: Hotel_Search",
+        "node_type": "tool",
+        "inputs": {
+            "location": "Shinjuku",
+            "stars": 4
+        },
+        "outputs": null,
+        "start_time": 1715000001.0,
+        "end_time": 1715000001.5,
+        "latency_ms": 500.0,
+        "token_count": 0,
+        "error": "TimeoutError: Vendor API did not respond within 500ms.",
+        "metadata": {},
+        "created_at": "2024-05-06T10:00:01",
+        "annotations": null,
+        "flagged": false
+    },
+    {
+        "node_id": "step_itinerary_gen",
+        "session_id": "Demo_Travel_Agent_Tokyo",
+        "parent_id": "root_travel_plan",
+        "name": "LLM: Generate_Itinerary",
+        "node_type": "llm",
+        "inputs": {
+            "flights": "Found 2 options...",
+            "hotels": "Error details..."
+        },
+        "outputs": "Day 1: Arrival in Narita...",
+        "start_time": 1715000003.5,
+        "end_time": 1715000005.0,
+        "latency_ms": 1500.0,
+        "token_count": 800,
+        "error": null,
+        "metadata": {
+            "temperature": 0.7
+        },
+        "created_at": "2024-05-06T10:00:03.5",
+        "annotations": null,
+        "flagged": false
+    }
+]
